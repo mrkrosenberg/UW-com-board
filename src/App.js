@@ -1,26 +1,73 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import './App.scss';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// Components
+import Notes from './components/Notes/Notes';
+
+class App extends Component {
+
+  constructor(props){
+    super(props)
+
+    this.state = {
+      notes: [
+        {
+          id: 1,
+          content: 'one note'
+        },
+        {
+          id: 2,
+          content: 'two note'
+        },
+        {
+          id: 3,
+          content: 'red note'
+        },
+        {
+          id: 4,
+          content: 'blue note'
+        }
+      ]
+    }
+
+
+  }
+
+  render() {
+      return (
+        <div className="App-header">
+          <div className="notes-wrapper">
+            <div className="notes-header">
+              <div className="heading">
+                React & Firebase To-Do List
+              </div>
+            </div>
+            <div className="notes-content">
+              {
+                this.state.notes.map((note) => {
+                  console.log(note)
+                  return(
+                    <Notes noteContent={note.content} noteId={note.id} key={note.id} />
+                  )
+                })
+              }
+            </div>
+            <div className="notes-form">
+
+            </div>
+            <div className="footer">
+
+            </div>
+          </div>
+        </div>
+
+      );
+  }
+  }
+
+
+Notes.propTypes = {
+
 }
 
 export default App;
