@@ -3,6 +3,7 @@ import './App.scss';
 
 // Components
 import Notes from './components/Notes/Notes';
+import NotesForm from './components/NotesForm/NotesForm';
 
 class App extends Component {
 
@@ -52,8 +53,8 @@ class App extends Component {
                 })
               }
             </div>
-            <div className="notes-form">
-
+            <div className="notesFooter">
+              <NotesForm />
             </div>
             <div className="footer">
 
