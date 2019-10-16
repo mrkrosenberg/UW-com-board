@@ -10,6 +10,8 @@ class App extends Component {
   constructor(props){
     super(props)
 
+    this.addNote = this.addNote.bind(this);
+
     this.state = {
       notes: [
         {
@@ -29,10 +31,19 @@ class App extends Component {
           content: 'blue note'
         }
       ]
-    }
+    };
+  };
 
+  addNote(note) {
 
-  }
+    const currentNotesArray = this.state.notes;
+    currentNotesArray.push({ id: currentNotesArray.length + 1, content: note });
+
+    this.setState({
+      notes: currentNotesArray
+    });
+
+  };
 
   render() {
       return (
@@ -53,22 +64,22 @@ class App extends Component {
                 })
               }
             </div>
-            <div className="notesFooter">
-              <NotesForm />
+            <div className="notes-form">
+              <NotesForm addNote={ this.addNote } />
             </div>
-            <div className="footer">
+            {/* <div className="footer">
 
-            </div>
+            </div> */}
           </div>
         </div>
 
       );
-  }
-  }
+  };
+};
 
 
 Notes.propTypes = {
 
-}
+};
 
 export default App;
