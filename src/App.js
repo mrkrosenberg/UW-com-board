@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import './App.scss';
 
+// Database Config Stuff
+import firebase from 'firebase/app';
+import { DB_CONFIG } from './Config/config';
+
 // Components
-import Notes from './components/Notes/Notes';
-import NotesForm from './components/NotesForm/NotesForm';
+import Notes from './Components/Notes/Notes';
+import NotesForm from './Components/NotesForm/NotesForm';
 
 class App extends Component {
 
@@ -12,37 +16,30 @@ class App extends Component {
 
     this.addNote = this.addNote.bind(this);
 
+    this.app = firebase.initializeApp(DB_CONFIG);
+    // this.db = this.app.database().ref().child('notes')
+
     this.state = {
-      notes: [
-        {
-          id: 1,
-          content: 'one note'
-        },
-        {
-          id: 2,
-          content: 'two note'
-        },
-        {
-          id: 3,
-          content: 'red note'
-        },
-        {
-          id: 4,
-          content: 'blue note'
-        }
-      ]
+      notes: []
     };
   };
 
+  // Lifecycle Methods
+  componentWillMount() {
+    
+  }
+
+
+  // Logic to add notes
   addNote(note) {
 
-    const currentNotesArray = this.state.notes;
-    currentNotesArray.push({ id: currentNotesArray.length + 1, content: note });
+    // const currentNotesArray = this.state.notes;
+    // currentNotesArray.push({ id: currentNotesArray.length + 1, content: note });
 
-    this.setState({
-      notes: currentNotesArray
-    });
+    // this.setState({
+    //   notes: currentNotesArray
 
+    // });
   };
 
   render() {
@@ -57,7 +54,7 @@ class App extends Component {
             <div className="notes-content">
               {
                 this.state.notes.map((note) => {
-                  console.log(note)
+                  // console.log(note)
                   return(
                     <Notes noteContent={note.content} noteId={note.id} key={note.id} />
                   )
