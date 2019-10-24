@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 
 // Database Config Stuff
-import firebase from 'firebase/app';
-import { DB_CONFIG } from './Config/config';
+import Firebase from '../src/Config/config';
 
 // Components
 import Notes from './Components/Notes/Notes';
@@ -16,8 +15,10 @@ class App extends Component {
 
     this.addNote = this.addNote.bind(this);
 
-    this.app = firebase.initializeApp(DB_CONFIG);
-    // this.db = this.app.database().ref().child('notes')
+    this.app = Firebase;
+    this.db = Firebase.firestore().collection('notes');
+    console.log(this.db);
+    // console.log(Firebase);
 
     this.state = {
       notes: []
@@ -26,8 +27,17 @@ class App extends Component {
 
   // Lifecycle Methods
   componentWillMount() {
-    
-  }
+    // const currentNotes = this.state.notes;
+    console.log('hello');
+
+    // this.db.on('value', snap => {
+    //   console.log('here',snap)
+    //   currentNotes.push({
+    //     id: snap.key,
+    //     content: snap.val().title
+    //   });
+    // });
+  };
 
 
   // Logic to add notes
