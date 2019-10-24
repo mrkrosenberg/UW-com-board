@@ -11,24 +11,32 @@ import NotesForm from './Components/NotesForm/NotesForm';
 class App extends Component {
 
   constructor(props){
+
     super(props)
 
     this.addNote = this.addNote.bind(this);
 
     this.app = Firebase;
-    this.db = Firebase.firestore().collection('notes');
+    this.db = this.app.firestore().collection('notes')
+              .get()
+              .then(function(snapshot) {
+                snapshot.forEach( doc => {
+                  console.log(doc.data())
+                })
+              });
     console.log(this.db);
-    // console.log(Firebase);
 
     this.state = {
       notes: []
     };
+
   };
 
   // Lifecycle Methods
-  componentWillMount() {
+  componentDidMount() {
+
     // const currentNotes = this.state.notes;
-    console.log('hello');
+    // console.log('current notes: ', currentNotes)
 
     // this.db.on('value', snap => {
     //   console.log('here',snap)
@@ -37,6 +45,8 @@ class App extends Component {
     //     content: snap.val().title
     //   });
     // });
+
+    // console.log('more current notes: ', currentNotes )
   };
 
 
