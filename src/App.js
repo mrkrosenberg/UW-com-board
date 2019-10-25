@@ -17,14 +17,7 @@ class App extends Component {
     this.addNote = this.addNote.bind(this);
 
     this.app = Firebase;
-    this.db = this.app.firestore().collection('notes')
-              .get()
-              .then(function(snapshot) {
-                snapshot.forEach( doc => {
-                  console.log(doc.data())
-                })
-              });
-    console.log(this.db);
+    this.db = this.app.firestore().collection('notes');
 
     this.state = {
       notes: []
@@ -35,18 +28,23 @@ class App extends Component {
   // Lifecycle Methods
   componentDidMount() {
 
-    // const currentNotes = this.state.notes;
-    // console.log('current notes: ', currentNotes)
+    const currentNotes = this.state.notes;
 
-    // this.db.on('value', snap => {
-    //   console.log('here',snap)
-    //   currentNotes.push({
-    //     id: snap.key,
-    //     content: snap.val().title
-    //   });
-    // });
+    this.db.get().then((snapshot) => {
+      console.log(snapshot)
+      // snapshot.docs.forEach((doc) => {
+      //   console.log(doc.data());
+      //   currentNotes.push({
+      //     id: doc.key,
+      //     title: doc.data().title,
+      //     body: doc.data().body
+      //   })
+      // })
 
-    // console.log('more current notes: ', currentNotes )
+      // this.setState({
+      //   notes: currentNotes
+      // })
+    });
   };
 
 
@@ -74,9 +72,9 @@ class App extends Component {
             <div className="notes-content">
               {
                 this.state.notes.map((note) => {
-                  // console.log(note)
+                  console.log('notes: ', note)
                   return(
-                    <Notes noteContent={note.content} noteId={note.id} key={note.id} />
+                    <Notes noteContent={note.body} noteTitle={note.title} key={note.id} />
                   )
                 })
               }
