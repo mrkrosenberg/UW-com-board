@@ -30,16 +30,17 @@ class App extends Component {
 
     const currentNotes = this.state.notes;
 
-    this.db.get().then((snapshot) => {
-      console.log(snapshot)
-      // snapshot.docs.forEach((doc) => {
-      //   console.log(doc.data());
-      //   currentNotes.push({
-      //     id: doc.key,
-      //     title: doc.data().title,
-      //     body: doc.data().body
-      //   })
-      // })
+    this.db.onSnapshot((snapshot) => {
+      // debugger
+      // console.log(snapshot)
+      snapshot.docs.forEach((doc) => {
+        // console.log(doc.data());
+        currentNotes.push({
+          id: doc.id,
+          title: doc.data().title,
+          body: doc.data().body
+        })
+      })
 
       // this.setState({
       //   notes: currentNotes
